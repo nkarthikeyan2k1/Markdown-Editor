@@ -1,10 +1,11 @@
 import "./App.css";
+import MarkdownEditor from "./components/MarkdownEditor";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header"></header>
-    </div>
+    <>
+      <MarkdownEditor></MarkdownEditor>
+    </>
   );
 }
 

@@ -13,7 +13,17 @@ module.exports = (server) => {
 
   //Socket Connection
   io.on("connection", async (socket) => {
-    console.log("Socket connected");
+    console.log("Socket connected", socket.id);
+
+    /**
+     * To Send Message
+     * @message we send encrypt message,content_type,recipients and id and participant id in array format
+     **/
+    socket.on("send-markdown", async (message) => {
+      console.log("messagemessage", message);
+      io.to(socket.id).emit("receive-markdown", message);
+      // socket.emit("receive-markdown", message);
+    });
 
     //socket disconnection
     socket.on("disconnect", async () => {
