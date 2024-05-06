@@ -18,14 +18,12 @@ module.exports = (server) => {
     console.log("Socket connected");
 
     /**
-     * To Send Message
-     * @message we send encrypt message,content_type,recipients and id and participant id in array format
+     * To Send markdown
+     *
      **/
-    socket.on("send-markdown", async (message = null) => {
-      // io.to(socket.id).emit("receive-markdown", message); // to the particular user
-      // io.emit("receive-markdown", message);//for all the socket connected user
-      const HTML = await MarkdownEditor.convertMarkdowntoHTML(message);
-      socket.emit("receive-markdown", HTML); // to who intial this connect
+    socket.on("send-markdown", async (markdown = null) => {
+      const HTML = await MarkdownEditor.convertMarkdowntoHTML(markdown);
+      socket.emit("receive-markdown", HTML);
     });
 
     //socket disconnection

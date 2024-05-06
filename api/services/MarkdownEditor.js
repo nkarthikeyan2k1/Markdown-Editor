@@ -1,8 +1,12 @@
 const markdownit = require("markdown-it");
+
 const md = markdownit({
   html: true,
   linkify: true,
   typographer: true,
+  table: true,
+  breaks: true,
+  footnote: true,
 });
 
 module.exports = {
