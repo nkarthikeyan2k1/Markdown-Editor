@@ -14,29 +14,23 @@ var socketIO = io(APIURL);
  * This Function used To connect with Socket
  **/
 const connect = () => {
-  return (socketIO = io(APIURL, {
-    auth: { token: localStorage.getItem("token") },
-  }));
+  socketIO.connect();
 };
 
 /**
  * This function used To send the message
- * @data we pass message,recipients,participants,content_type
+ * @data we pass the mark down texts
  **/
 const sendMarkdown = (data) => {
   return socketIO.emit("send-markdown", data);
 };
 
 /**
- * This function used To get Chat Message
- * @callback we receive message,created_by,viewed_by,content_type,role,recipients, and participants in Object format
+ * This function used To get HTML Message
  **/
 const getHTML = (callback) => {
   socketIO.off("receive-markdown");
-  // socketIO.on("receive-markdow", callback);
-  socketIO.on("receive-markdow", (convertedHtml) => {
-    console.log("chchc", convertedHtml);
-  });
+  socketIO.on("receive-markdown", callback);
 };
 
 /**

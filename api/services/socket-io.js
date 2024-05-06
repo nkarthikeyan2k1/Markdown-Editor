@@ -2,6 +2,8 @@
 
 const socketIO = require("socket.io");
 
+const MarkdownEditor = require("./MarkdownEditor");
+
 module.exports = (server) => {
   //Connection setup
   const io = socketIO(server, {
@@ -19,10 +21,11 @@ module.exports = (server) => {
      * To Send Message
      * @message we send encrypt message,content_type,recipients and id and participant id in array format
      **/
-    socket.on("send-markdown", async (message) => {
-      console.log("messagemessage", message);
-      io.to(socket.id).emit("receive-markdown", message);
-      // socket.emit("receive-markdown", message);
+    socket.on("send-markdown", async (message = null) => {
+      // io.to(socket.id).emit("receive-markdown", message); // to the particular user
+      // io.emit("receive-markdown", message);//for all the socket connected user
+      const HTML = await MarkdownEditor.convertMarkdowntoHTML(message);
+      socket.emit("receive-markdown", HTML); // to who intial this connect
     });
 
     //socket disconnection

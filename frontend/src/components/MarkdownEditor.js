@@ -1,18 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Socket from "../services/SocketServices";
 import { throttleFunction } from "../services/UtlitsServices";
 
 function MarkdownEditor() {
+  const containerRef = useRef(null);
   const [markdown, SetMarkdown] = useState("");
+  const [HTML, SetHTML] = useState("");
 
   //handel the textarea value
   const handelTextArea = (event) => {
     const { value } = event.target;
+    SetMarkdown(value);
     Socket.sendMarkdown(value);
   };
 
+  useEffect(() => {
+    // const container = containerRef.current;
+    // container.innerHTML = markdown;
+  }, [markdown]);
+
   // handel the onchange function in the input box make the delay using the dwbounce
-  const throttlingHandleInput = throttleFunction(handelTextArea, 500);
+  const throttlingHandleInput = throttleFunction(handelTextArea, 1000);
 
   useEffect(() => {
     /**
@@ -20,7 +28,8 @@ function MarkdownEditor() {
      * @message we receive the latest sended message details in Object format
      **/
     Socket.getHTML(async (message) => {
-      console.log("message from socket", message);
+      SetHTML(message);
+      // await console.log("message from socket", message);
     });
   });
 
@@ -41,7 +50,12 @@ function MarkdownEditor() {
             ></textarea>
           </div>
           <div className="col-6 full-height">
-            <div className="preview full-height">{markdown}</div>
+            {/* <div className="preview full-height" markdown ref={containerRef}></div> */}
+            {/* <div className="preview full-height">{HTML}</div> */}
+            <div
+              className="preview full-height"
+              dangerouslySetInnerHTML={{ __html: HTML }}
+            />
           </div>
         </div>
       </div>
