@@ -15,7 +15,7 @@ module.exports = (server) => {
 
   //Socket Connection
   io.on("connection", async (socket) => {
-    console.log("Socket connected", socket.id);
+    console.log("Socket connected");
 
     /**
      * To Send Message
