@@ -8,6 +8,7 @@ module.exports = (server) => {
   //Connection setup
   const io = socketIO(server, {
     transports: ["websocket", "polling"],
+    pingTimeout: 60000,
     cors: {
       origin: "*",
     },

@@ -18,20 +18,33 @@ app.use(helmet());
 const cors = require("cors");
 app.use(cors({}));
 
-// To handle HTTP request body
-app.use(express.json());
+app.use(express.json()); // To accept JSON Data
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 const PORT = process.env.PORT || 3001;
 
-app.get("/", (req, res) => {
-  return res.status(200).json({ message: `server connected  port ${PORT}` });
-});
+// app.get("/", (req, res) => {
+//   return res.status(200).json({ message: `server connected  port ${PORT}` });
+// });
+
+// ---------------Deployment--------------------------
+const __dirname1 = path.resolve();
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname1, "../frontend/build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname1, "frontend,", "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    return res.status(200).json({ message: `server connected  port ${PORT}` });
+  });
+}
+// ---------------Deployment--------------------------
 
 server.listen(PORT, () => {
   console.log(`server started at  ${PORT}`);
 });
 
-//Importing the socket-IO
 require("./services/socket-io")(server);
