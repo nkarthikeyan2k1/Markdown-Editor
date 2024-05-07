@@ -5,7 +5,16 @@
 import { io } from "socket.io-client";
 
 /*Declare the API BaseUrl*/
-const APIURL = process.env.REACT_APP_SERVERURL;
+let APIURL;
+if (process.env.REACT_APP_ENV === "production") {
+  // Running production
+  APIURL = window.location.origin;
+} else {
+  // Running on local
+  APIURL = process.env.REACT_APP_SERVERURL;
+}
+
+// const APIURL = process.env.REACT_APP_SERVERURL;
 
 //Intial socketIO declaraction
 var socketIO = io(APIURL);
