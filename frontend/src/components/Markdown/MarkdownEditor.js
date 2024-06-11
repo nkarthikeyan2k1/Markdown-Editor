@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import Socket from "./../../services/SocketServices";
 import { throttleFunction } from "./../../services/UtlitsServices";
 import parse from "html-react-parser";
+import { useTheme } from "../../Context";
 
 function MarkdownEditor() {
   const [markdown, setMarkdown] = useState("");
@@ -10,6 +11,7 @@ function MarkdownEditor() {
   const [select, setSelect] = useState("Preview");
   const [loading, setLoading] = useState(false);
   const [characterCount, setCharacterCount] = useState(0);
+  const { theme, toggleTheme } = useTheme();
 
   const leftPaneRef = useRef(null);
   const rightPaneRef = useRef(null);
@@ -63,6 +65,29 @@ function MarkdownEditor() {
 
   return (
     <section>
+      <div className="modal-switch">
+        <label>
+          {console.log("theme.current", theme.current)}
+          <input
+            type="checkbox"
+            checked={theme.current === "dark"}
+            name="toggle"
+            onChange={toggleTheme}
+          />
+          <span className="slider round">
+            <img
+              src={
+                theme.current === "dark"
+                  ? "../../../assets/img/Moon.png"
+                  : "../../../assets/img/sun.png"
+              }
+              height="100%"
+              width="100%"
+              alt="IMG"
+            />
+          </span>
+        </label>
+      </div>
       <div className="container">
         <h1>Markdown Editor</h1>
       </div>
@@ -90,7 +115,12 @@ function MarkdownEditor() {
           </div>
           <div className="col-6 full-height">
             <div className="controls ">
-              <div className="form-group d-flex">
+              <div
+                className="form-group d-flex "
+                style={{
+                  alignItems: "center",
+                }}
+              >
                 <select
                   className="form-select"
                   name="markdownSelect"

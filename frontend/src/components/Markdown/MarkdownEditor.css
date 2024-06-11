@@ -4,6 +4,16 @@ body,
 .full-height {
   height: 100%;
 }
+[data-theme="light"] {
+  --bg-color: #fbfbfb;
+  --text-color: #333333;
+  --heading-color: #333333;
+}
+[data-theme="dark"] {
+  --bg-color: #333333;
+  --text-color: white;
+  --heading-color: #fbfbfb;
+}
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -11,55 +21,110 @@ body {
   color: #333;
   overflow-x: hidden;
   padding-bottom: 120px;
-  background-color: #fbfbfb;
+  background-color: var(--bg-color);
 }
 
-.preview {
+.preview,
+.source {
   padding: 2px 10px;
   overflow: auto;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: var(--bg-color);
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
   border-radius: 4px;
   display: block;
 }
-.source {
-    width: 100%;
-    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-    font-size: 13px;
-    padding: 2px;
-  }
-  
-  .App-header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-  .textarea {
-    overflow: auto;
-    resize: none;
-  }
-  section {
-    height: 100%;
-    padding: 20px 0 0 0;
-  }
-  .full-height {
-    height: 100%;
-  }
-
-  .controls button{
-    margin: 5px;
-    border-radius:8px ;
-    text-transform: none;
-   }
-  .controls {
-    border-radius: 6px 6px 0 0;
-    font-size: 12px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--heading-color);
 }
-.controls select{
-    width: 50%;
+
+p,
+pre code {
+  color: var(--text-color);
+}
+.source {
+  width: 100%;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 13px;
+  padding: 2px;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: var(--bg-color);
+}
+.textarea {
+  overflow: auto;
+  resize: none;
+}
+section {
+  height: 100%;
+  padding: 20px 0 0 0;
+}
+.full-height {
+  height: 100%;
+}
+
+.controls button {
+  margin: 5px;
+  border-radius: 8px;
+  text-transform: none;
+}
+.controls {
+  border-radius: 6px 6px 0 0;
+  font-size: 12px;
+}
+.controls select {
+  width: 50%;
+}
+.modal-switch {
+  float: inline-end;
+  position: relative;
+  right: 2rem;
+  text-align: center;
+}
+.modal-switch label {
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+  position: relative;
+  margin-left: 10px;
+}
+.modal-switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* background-color: var(--text-color); */
+  border-radius: 20px;
+  transition: 0.4s;
+}
+.modal-switch .slider::before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #f8c204;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.modal-switch input:checked + .slider::before {
+  transform: translate(25px);
+  background-color: #8a8a8a;
 }

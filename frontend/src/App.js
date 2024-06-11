@@ -1,10 +1,13 @@
 import "./App.css";
 import MarkdownEditor from "./components/Markdown/MarkdownEditor.js";
+import Context from "./Context.js";
 
 function App() {
   return (
     <>
-      <MarkdownEditor></MarkdownEditor>
+      <Context>
+        <MarkdownEditor></MarkdownEditor>
+      </Context>
     </>
   );
 }
