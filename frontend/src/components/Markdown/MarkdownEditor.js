@@ -67,17 +67,16 @@ function MarkdownEditor() {
     <section>
       <div className="modal-switch">
         <label>
-          {console.log("theme.current", theme.current)}
           <input
             type="checkbox"
-            checked={theme.current === "dark"}
+            defaultChecked={theme === "dark"}
             name="toggle"
             onChange={toggleTheme}
           />
           <span className="slider round">
             <img
               src={
-                theme.current === "dark"
+                theme === "dark"
                   ? "../../../assets/img/Moon.png"
                   : "../../../assets/img/sun.png"
               }
